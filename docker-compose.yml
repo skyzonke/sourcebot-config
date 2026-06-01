@@ -1,6 +1,10 @@
 services:
   sourcebot:
     image: ghcr.io/sourcebot-dev/sourcebot:latest
+    entrypoint: >
+      /bin/sh -c
+      "export ANTHROPIC_API_KEY=$$(cat /run/secrets/ANTHROPIC_API_KEY) &&
+      exec /app/entrypoint.sh"
     user: sourcebot
     depends_on:
       - postgres
@@ -26,7 +30,7 @@ services:
       - REDIS_URL=${REDIS_URL:-redis://redis:6379}
       - SOURCEBOT_EE_LICENSE_KEY=${SOURCEBOT_EE_LICENSE_KEY:-}
       - GITHUB_TOKEN=${GITHUB_TOKEN:-}
-      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      # - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
     deploy:
       replicas: 1
       restart_policy:
