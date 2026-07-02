@@ -1,6 +1,6 @@
 services:
   sourcebot:
-    image: ghcr.io/sourcebot-dev/sourcebot:latest
+    image: ghcr.io/sourcebot-dev/sourcebot:v4.17.4
     entrypoint: >
       /bin/sh -c
       "export ANTHROPIC_API_KEY=$$(cat /run/secrets/ANTHROPIC_API_KEY) &&
